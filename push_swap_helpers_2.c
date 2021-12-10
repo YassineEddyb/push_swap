@@ -6,26 +6,26 @@
 /*   By: yed-dyb <yed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:20:16 by yed-dyb           #+#    #+#             */
-/*   Updated: 2021/12/09 18:39:30 by yed-dyb          ###   ########.fr       */
+/*   Updated: 2021/12/10 11:50:37 by yed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_numbers(char **argv, int argc)
+int	is_numbers(char **argv, int size)
 {
 	int	i;
 	int	j;
 
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (i < size)
 	{
 		j = 0;
 		while (argv[i][j])
 		{
 			if (argv[i][j] != '-' && (argv[i][j] < '0' || argv[i][j] > '9'))
 			{
-				printf("Error\n");
+				ft_printf("Error\n");
 				return (0);
 			}
 			j++;
@@ -54,9 +54,14 @@ int	check_doubles(char **arr, int size)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	while (i < size)
 	{
+		if (ft_atoi(arr[i]) > 2147483647 || ft_atoi(arr[i]) < -2147483648)
+		{
+			ft_printf("Error\n");
+			return (0);
+		}
 		j = i + 1;
 		while (j < size)
 		{

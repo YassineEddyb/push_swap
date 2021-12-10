@@ -6,7 +6,7 @@
 /*   By: yed-dyb <yed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:15:46 by yed-dyb           #+#    #+#             */
-/*   Updated: 2021/12/09 18:35:37 by yed-dyb          ###   ########.fr       */
+/*   Updated: 2021/12/10 12:31:55 by yed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	sort_big_stack(t_list **a, t_list **b, int size)
 	int	max_num;
 	int	max_bits;
 
+	max_bits = 0;
 	if (check_list_sort(*a))
 		return ;
 	max_num = get_b_or_s_number(*a, 'b');
@@ -27,14 +28,13 @@ void	sort_big_stack(t_list **a, t_list **b, int size)
 	i = -1;
 	while (++i < max_bits)
 	{
-		j = 0;
-		while (j < size)
+		j = -1;
+		while (++j < size)
 		{
 			if (*a && (((int)(*a)->content >> i) & 1) == 1)
 				ra_rb(a, 'a', 1);
 			else
 				pb(a, b, 1);
-			j++;
 		}
 		while (*b)
 			pa(a, b, 1);
@@ -78,7 +78,7 @@ void	fill_and_sort_big_stack(t_list **a, t_list **b, char **argv, int size)
 	arr = malloc(size * sizeof(int));
 	while (i < size)
 	{
-		arr[i] = ft_atoi(argv[i + 1]);
+		arr[i] = ft_atoi(argv[i]);
 		i++;
 	}
 	i = 0;
@@ -86,24 +86,25 @@ void	fill_and_sort_big_stack(t_list **a, t_list **b, char **argv, int size)
 	{
 		ft_sort_int_tab(arr, size);
 		ft_lstadd_back(a, ft_lstnew((void *) \
-		get_index(arr, ft_atoi(argv[i + 1]))));
+		get_index(arr, ft_atoi(argv[i]))));
 		i++;
 	}
 	sort_big_stack(a, b, size);
+	free(arr);
 }
 
-void	sort_stack(t_list **a, t_list **b, char **argv, int argc)
+void	sort_stack(t_list **a, t_list **b, char **argv, int size)
 {
-	if (argc - 1 < 7)
+	if (size < 7)
 	{
-		fill_stack(argv, a, argc - 1);
+		fill_stack(argv, a, size);
 		if (check_list_sort(*a))
 			return ;
-		sort_small_stack(a, b, argc - 1);
+		sort_small_stack(a, b, size);
 	}
-	else if (argc - 1 >= 7)
+	else if (size >= 7)
 	{
-		fill_and_sort_big_stack(a, b, argv, argc - 1);
+		fill_and_sort_big_stack(a, b, argv, size);
 	}
 }
 
@@ -112,8 +113,10 @@ int	main(int argc, char **argv)
 	t_list		*a;
 	t_list		*b;
 
-	if (!is_numbers(argv, argc) || !check_doubles(argv, argc))
+	argv++;
+	if (argc == 1 || !is_numbers(argv, argc - 1) \
+		|| !check_doubles(argv, argc - 1))
 		return (0);
-	sort_stack(&a, &b, argv, argc);
+	sort_stack(&a, &b, argv, argc - 1);
 	return (1);
 }

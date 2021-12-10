@@ -6,7 +6,7 @@
 /*   By: yed-dyb <yed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:18:07 by yed-dyb           #+#    #+#             */
-/*   Updated: 2021/12/09 18:38:06 by yed-dyb          ###   ########.fr       */
+/*   Updated: 2021/12/10 10:26:28 by yed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	fill_stack(char **argv, t_list **a, int size)
 	i = 0;
 	while (i < size)
 	{
-		nb = ft_atoi(argv[i + 1]);
+		nb = ft_atoi(argv[i]);
 		ft_lstadd_back(a, ft_lstnew((void *) nb));
 		i++;
 	}

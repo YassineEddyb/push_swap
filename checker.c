@@ -6,7 +6,7 @@
 /*   By: yed-dyb <yed-dyb@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 13:00:36 by yed-dyb           #+#    #+#             */
-/*   Updated: 2021/12/09 16:32:27 by yed-dyb          ###   ########.fr       */
+/*   Updated: 2021/12/10 12:26:39 by yed-dyb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	do_action(t_list **a, t_list **b, char *s)
 		rra_rrb(b, 'b', 0);
 	else if (!ft_strncmp("rrr\n", s, ft_strlen(s)))
 		rrr(a, b);
+	free(s);
 }
 
 int	main(int argc, char **argv)
@@ -62,7 +63,9 @@ int	main(int argc, char **argv)
 	t_list	*a;
 	t_list	*b;
 
-	if (!is_numbers(argv, argc) || !check_doubles(argv, argc))
+	argv++;
+	if (argc == 1 || !is_numbers(argv, argc - 1) \
+		|| !check_doubles(argv, argc - 1))
 		return (0);
 	fill_stack(argv, &a, argc - 1);
 	line = get_next_line(0);
@@ -75,4 +78,5 @@ int	main(int argc, char **argv)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
+	return (1);
 }
