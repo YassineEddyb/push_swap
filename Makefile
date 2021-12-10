@@ -10,7 +10,7 @@ CC = gcc
 all:
 	cd libft && make && make bonus && cd ..
 	cd ft_printf && make && cd ..
-	$(CC) $(CFLAGS) $(SRC) $(LIBFT) $(PRINTF) -g -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) $(LIBFT) $(PRINTF) -o $(NAME)
 
 bonus:
 	cd libft && make && make bonus && cd ..
